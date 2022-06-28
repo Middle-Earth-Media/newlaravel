@@ -1,7 +1,7 @@
 name: Pipeline
 
 on: [push]
-
+# Comment
 jobs:
   docker_actions:
     name: Build and push Docker image
