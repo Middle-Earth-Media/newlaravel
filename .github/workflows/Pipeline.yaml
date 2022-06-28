@@ -3,10 +3,20 @@ name: Pipeline
 on: [push]
 
 jobs:
-  build:
+  docker_actions:
+    name: Build and push Docker image
     runs-on: ubuntu-latest
     steps:
-    - name: Expose secrets
-      run: |
-        echo "${{ secrets.DOCKERHUB_USER }}"
-        echo "${{ secrets.DOCKERHUB_PASS }}"
+    - name: Check out repository
+      uses: actions/checkout@v3
+    - name: Docker Login
+      uses: docker/login-action@v2.0.0
+      with:
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_PASS }}
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v3.0.0
+      with:
+        context: .
+        push: true
+        tags: middleearthmedia/newlaravel
