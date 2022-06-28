@@ -1,0 +1,12 @@
+name: Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Expose secrets
+      run: |
+        echo "${{ secrets.DOCKERHUB_USER }}"
+        echo "${{ secrets.DOCKERHUB_PASS }}"
